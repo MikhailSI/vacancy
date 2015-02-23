@@ -63,7 +63,7 @@ CREATE TABLE `vacancies_languages` (
 
 LOCK TABLES `vacancies_languages` WRITE;
 /*!40000 ALTER TABLE `vacancies_languages` DISABLE KEYS */;
-INSERT INTO `vacancies_languages` VALUES (2,'тест','тест',1);
+INSERT INTO `vacancies_languages` VALUES (2,'ПХП-программист','Мы ищем талантливого ПХП-программиста',1);
 /*!40000 ALTER TABLE `vacancies_languages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

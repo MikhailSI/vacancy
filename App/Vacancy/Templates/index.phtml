@@ -1,31 +1,40 @@
-<select id="department">
-    <option value="0">all</option>
-    <?php foreach ($departments as $language) : ?>
-        <option value="<?php echo $language->getId(); ?>"><?php echo $language->getName(); ?></option>
-    <?php endforeach; ?>
-</select>
-language:
-<select id="lang">
-    <?php foreach ($languages as $language) : ?>
-        <option value="<?php echo $language->getId(); ?>"><?php echo $language->getLang(); ?></option>
-    <?php endforeach; ?>
-</select>
-<button onclick="Vacancy.filter()">show</button>
+<div class="form-inline">
+    <div class="form-group">
+        <label for="department">Department:</label>
+        <select id="department" class="form-control">
+            <option value="0">all</option>
+            <?php foreach ($departments as $language) : ?>
+                <option value="<?php echo $language->getId(); ?>"><?php echo $language->getName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="lang">Language:</label>
+        <select id="lang" class="form-control">
+            <?php foreach ($languages as $language) : ?>
+                <option value="<?php echo $language->getId(); ?>"><?php echo $language->getLang(); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <button onclick="Vacancy.filter()" class="btn btn-default">show</button>
+    </div>
+</div>
 <div class="vacancy-list">
-    <div class="vacancy-item-source" style="display:none!important">
-        <div class="vacancy-item-id"></div>
-        <div class="vacancy-item-name"></div>
-        <div class="vacancy-item-desc"></div>
-        <div class="vacancy-item-lang"></div>
-        <div class="vacancy-item-department"></div>
+    <div class="vacancy-item-source row" style="display:none!important">
+        <div class="vacancy-item-id col-md-1"></div>
+        <div class="vacancy-item-name col-md-3"></div>
+        <div class="vacancy-item-desc col-md-3"></div>
+        <div class="vacancy-item-lang col-md-2"></div>
+        <div class="vacancy-item-department col-md-3"></div>
     </div>
 <?php foreach ($repository as $item) : ?>
-    <div class="vacancy-item">
-        <div class="vacancy-item-id"><?php echo $item->getId(); ?></div>
-        <div class="vacancy-item-name"><?php echo $item->getName(); ?></div>
-        <div class="vacancy-item-desc"><?php echo $item->getDesc(); ?></div>
-        <div class="vacancy-item-lang"><?php echo $item->getLanguage();?></div>
-        <div class="vacancy-item-department"><?php echo $item->getDepartment(); ?></div>
+    <div class="vacancy-item row">
+        <div class="vacancy-item-id col-md-1"><?php echo $item->getId(); ?></div>
+        <div class="vacancy-item-name col-md-3"><?php echo $item->getName(); ?></div>
+        <div class="vacancy-item-desc col-md-3"><?php echo $item->getDesc(); ?></div>
+        <div class="vacancy-item-lang col-md-2"><?php echo $item->getLanguage();?></div>
+        <div class="vacancy-item-department col-md-3"><?php echo $item->getDepartment(); ?></div>
     </div>
 <?php endforeach; ?>
 </div>
