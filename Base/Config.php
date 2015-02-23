@@ -7,7 +7,7 @@ class Config
     {
         return [
             'dsn' => 'mysql:dbname=vacancy;host=127.0.0.1',
-            'user' => 'root',
+            'user' => 'admin',
             'password' => 'qwer',
         ];
     }
