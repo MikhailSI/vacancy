@@ -1,0 +1,63 @@
+<select id="department">
+    <option value="0">all</option>
+    <?php foreach ($departments as $language) : ?>
+        <option value="<?php echo $language->getId(); ?>"><?php echo $language->getName(); ?></option>
+    <?php endforeach; ?>
+</select>
+language:
+<select id="lang">
+    <?php foreach ($languages as $language) : ?>
+        <option value="<?php echo $language->getId(); ?>"><?php echo $language->getLang(); ?></option>
+    <?php endforeach; ?>
+</select>
+<button onclick="Vacancy.filter()">show</button>
+<div class="vacancy-list">
+    <div class="vacancy-item-source" style="display:none!important">
+        <div class="vacancy-item-id"></div>
+        <div class="vacancy-item-name"></div>
+        <div class="vacancy-item-desc"></div>
+        <div class="vacancy-item-lang"></div>
+        <div class="vacancy-item-department"></div>
+    </div>
+<?php foreach ($repository as $item) : ?>
+    <div class="vacancy-item">
+        <div class="vacancy-item-id"><?php echo $item->getId(); ?></div>
+        <div class="vacancy-item-name"><?php echo $item->getName(); ?></div>
+        <div class="vacancy-item-desc"><?php echo $item->getDesc(); ?></div>
+        <div class="vacancy-item-lang"><?php echo $item->getLanguage();?></div>
+        <div class="vacancy-item-department"><?php echo $item->getDepartment(); ?></div>
+    </div>
+<?php endforeach; ?>
+</div>
+
+
+<script type="text/javascript">
+    var Vacancy = {
+        filter: function () {
+            var $department = $("#department").val();
+            var $lang = $("#lang").val();
+
+            $.post('/filter/', {department: $department, language: $lang}, function (data) {
+                var $item = $(".vacancy-item-source");
+                $(".vacancy-list .vacancy-item").remove();
+
+                if (data.vacancies) {
+                    for (var i = 0; i < data.vacancies.length; i++) {
+                        var item = data.vacancies[i];
+                        var $fillItem = $item.clone();
+                        $fillItem.children(".vacancy-item-id").html(item.id);
+                        $fillItem.children(".vacancy-item-name").html(item.name);
+                        $fillItem.children(".vacancy-item-desc").html(item.desc);
+                        $fillItem.children(".vacancy-item-lang").html(item.language);
+                        $fillItem.children(".vacancy-item-department").html(item.department);
+                        $fillItem.removeClass("vacancy-item-source");
+                        $fillItem.addClass("vacancy-item");
+                        $fillItem.show();
+                        $(".vacancy-list").append($fillItem);
+                    };
+                }
+
+            });
+        }
+    }
+</script>
