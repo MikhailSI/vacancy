@@ -1,6 +1,15 @@
 <?php
 namespace Base;
 
+/**
+ * Base App class
+ *
+ * Main application class. Use for generate repositories, models, render views etc.
+ *
+ * @package    Base
+ * @author     MikhailSI <oddisey@yandex.ru>
+ * @version    Release: 0.1
+ */
 class App
 {
     private static $instance = null;
@@ -13,6 +22,10 @@ class App
     private $config = null;
     private $driver = null;
 
+    /**
+     * Return instance of Application
+     * @return \Base\App
+     */
     public static function i()
     {
         if (is_null(self::$instance)) {
@@ -26,6 +39,11 @@ class App
     {
     }
 
+    /**
+     * load application config and init base components
+     * @param Config $config
+     * @return $this
+     */
     public function configure(\Base\Config $config)
     {
         $this->config = $config;
@@ -36,11 +54,13 @@ class App
         return $this;
     }
 
-    public function model($modelName)
-    {
-        return $this->object($modelName);
-    }
-
+    /**
+     * generate new instance of class with parameters
+     * @param $objectClass
+     * @param array $params
+     * @return mixed
+     * @throws \Exception
+     */
     public function object($objectClass, array $params = [])
     {
         if (class_exists($objectClass)) {
@@ -54,6 +74,12 @@ class App
         }
     }
 
+    /**
+     * get current route config
+     * @param string $route
+     * @return mixed
+     * @throws \Exception
+     */
     public function router($route = '/')
     {
         $routes = $this->config->routing();
@@ -103,6 +129,9 @@ class App
         return ".." . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . "Templates" . DIRECTORY_SEPARATOR . $name . ".phtml";
     }
 
+    /**
+     * processing request
+     */
     public function start()
     {
         try {
@@ -113,6 +142,7 @@ class App
             $this->module = $module;
             /** @var \Base\Controller $controller */
             $controller = $this->getController($router['ctrl']);
+            $result = "";
 
             if (method_exists($controller, $router['action'] . 'Action')) {
                 $result = $controller->{$router['action'] . 'Action'}();
@@ -128,7 +158,13 @@ class App
         }
     }
 
-    public function render($controller, $template)
+    /**
+     * render template
+     * @param $controller
+     * @param $template
+     * @return string
+     */
+    protected function render($controller, $template)
     {
         ob_start();
         extract($controller->getView());

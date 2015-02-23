@@ -1,8 +1,19 @@
 <?php
 namespace Base;
 
+/**
+ * Main configuration class
+ *
+ * @package    Base
+ * @author     MikhailSI <oddisey@yandex.ru>
+ * @version    Release: 0.1
+ */
 class Config
 {
+    /**
+     * MySQL connection configuration
+     * @return array
+     */
     public function db()
     {
         return [
@@ -12,6 +23,10 @@ class Config
         ];
     }
 
+    /**
+     * routes config
+     * @return array
+     */
     public function routing()
     {
         return [

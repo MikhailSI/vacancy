@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class loader
+ *
+ * @package    Base
+ * @author     MikhailSI <oddisey@yandex.ru>
+ * @version    Release: 0.1
+ */
 function autoload($className)
 {
     $className = ltrim($className, '\\');
